@@ -1,3 +1,10 @@
+<?php $deptos = array();
+  foreach ($departamentos as $key => $depto) {
+    $deptos[$depto->id_departamento] = ucwords($depto->nombre_departamento);
+  }
+?>
+
+
 @extends('plantillas.principal')
 
 @section('title')
@@ -105,13 +112,13 @@
     <div class="form-group">
       {!!Form::label('Departamento residencia*',null ,['class'=>'col-sm-2 control-label'])!!}
       <div class="col-sm-10">
-        {!!Form::select('id_departamento', array('a negativo' => 'A Negativo', 'a positivo' => 'A Positivo', 'b negativo' => 'B Negativo', 'b positivo' => 'B Positivo', 'ab negativo' => 'AB Negativo', 'ab positivo' => 'AB Positivo', 'o negativo' => 'O Negativo', 'o positivo' => 'O Positivo',), null, ['placeholder' => 'Selecciona municipio...', 'class'=>'form-control'])!!}
+        {!!Form::select('id_departamento', $deptos, null, ['placeholder' => 'Selecciona departamento...', 'class'=>'form-control departamento', 'required'=>'required'])!!}
       </div>
     </div>
 
     <div class="form-group">
       {!!Form::label('Municipio residencia*',null ,['class'=>'col-sm-2 control-label'])!!}
-      <div class="col-sm-10">
+      <div class="col-sm-10" id="municipio">
         {!!Form::select('id_municipio', array('a negativo' => 'A Negativo', 'a positivo' => 'A Positivo', 'b negativo' => 'B Negativo', 'b positivo' => 'B Positivo', 'ab negativo' => 'AB Negativo', 'ab positivo' => 'AB Positivo', 'o negativo' => 'O Negativo', 'o positivo' => 'O Positivo',), null, ['placeholder' => 'Selecciona municipio...', 'class'=>'form-control'])!!}
       </div>
     </div>

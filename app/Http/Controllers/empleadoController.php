@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
 use \Alifarmat\Empleado;
+use \Alifarmat\Departamento;
 class empleadoController extends Controller
 {
     /**
@@ -26,8 +27,8 @@ class empleadoController extends Controller
      */
     public function create()
     {
-        
-        return view('empleado.nempleado');
+        $departamentos = Departamento::getAll();
+        return view('empleado.nempleado', compact('departamentos'));
     }
 
     /**

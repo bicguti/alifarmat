@@ -27,5 +27,22 @@ jQuery(document).ready(function($) {
   $.datepicker.setDefaults($.datepicker.regional["es"]);//asignar las configuraciones al datapicker
   $('.datepicker').datepicker();//asignar un datapicker a los elementos que tengan una clase llamada datapicker
 
+  $('.municipio').change(function(event) {
+    event.preventDefault();
+    var depto = $(this).val();
+    $.ajax({
+      url: url,
+      type: 'GET',
+      data:{id: depto}
+    }).done(function() {
+      console.log('success');
+    }).fail(function() {
+      console.log('erro');
+    }).always(function(data) {
+        var json = JSON.parse(data);
+        
+    });//fin de la peticion ajax
+
+  });//fin del evento change
 
 });

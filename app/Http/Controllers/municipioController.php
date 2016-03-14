@@ -5,7 +5,7 @@ namespace Alifarmat\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
-
+use \Alifarmat\Municipio;
 class municipioController extends Controller
 {
     /**
@@ -13,9 +13,10 @@ class municipioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $municipios = Municipio::findMunicipios($request['id']);
+        return json_encode($municipios);
     }
 
     /**
