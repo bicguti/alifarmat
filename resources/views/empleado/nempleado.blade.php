@@ -1,6 +1,10 @@
 <?php $deptos = array();
+      $puesto = array();
   foreach ($departamentos as $key => $depto) {
-    $deptos[$depto->id_departamento] = ucwords($depto->nombre_departamento);
+    $deptos[$depto->id_departamento] = mb_strtoupper($depto->nombre_departamento);
+  }
+  foreach ($puestos as $key => $pt) {
+    $puesto[$pt->id_puesto] = mb_strtoupper($pt->nombre_puesto);
   }
 ?>
 
@@ -112,21 +116,21 @@
     <div class="form-group">
       {!!Form::label('Departamento residencia*',null ,['class'=>'col-sm-2 control-label'])!!}
       <div class="col-sm-10">
-        {!!Form::select('id_departamento', $deptos, null, ['placeholder' => 'Selecciona departamento...', 'class'=>'form-control departamento', 'required'=>'required'])!!}
+        {!!Form::select('id_departamento', $deptos, null, ['placeholder' => 'Selecciona departamento...', 'class'=>'form-control departamento', 'required'=>'required', 'data-toggle'=>'modal', 'data-target'=>'#myModal'])!!}
       </div>
     </div>
 
     <div class="form-group">
       {!!Form::label('Municipio residencia*',null ,['class'=>'col-sm-2 control-label'])!!}
       <div class="col-sm-10" id="municipio">
-        {!!Form::select('id_municipio', array('a negativo' => 'A Negativo', 'a positivo' => 'A Positivo', 'b negativo' => 'B Negativo', 'b positivo' => 'B Positivo', 'ab negativo' => 'AB Negativo', 'ab positivo' => 'AB Positivo', 'o negativo' => 'O Negativo', 'o positivo' => 'O Positivo',), null, ['placeholder' => 'Selecciona municipio...', 'class'=>'form-control'])!!}
+        {!!Form::select('id_municipio', array(), null, ['placeholder' => 'Selecciona municipio...', 'class'=>'form-control'])!!}
       </div>
     </div>
 
     <div class="form-group">
       {!!Form::label('Puesto*',null ,['class'=>'col-sm-2 control-label'])!!}
       <div class="col-sm-10">
-        {!!Form::select('id_puesto', array('a negativo' => 'A Negativo', 'a positivo' => 'A Positivo', 'b negativo' => 'B Negativo', 'b positivo' => 'B Positivo', 'ab negativo' => 'AB Negativo', 'ab positivo' => 'AB Positivo', 'o negativo' => 'O Negativo', 'o positivo' => 'O Positivo',), null, ['placeholder' => 'Selecciona puesto...', 'class'=>'form-control'])!!}
+        {!!Form::select('id_puesto', $puesto, null, ['placeholder' => 'Selecciona puesto...', 'class'=>'form-control', 'required'=>'required'])!!}
       </div>
     </div>
 
@@ -136,4 +140,60 @@
       </div>
     </div>
   {!!Form::close()!!}
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" >
+    <div class="modal-content content-cargando">
+      <div class="modal-header header-cargando">
+  <!--      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+        <h1 class="modal-title text-center" id="myModalLabel"><strong style="color:orange">Cargando...</strong></h1>
+      </div>
+      <div class="modal-body">
+
+        <div class="main_body">
+<!--          <div class="element">
+              <div class="loading1">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+              </div>
+          </div>-->
+          <div class="element">
+              <div class="loading2">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+              </div>
+          </div>
+    <!--      <div class="element">
+              <div class="loading3">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+              </div>
+          </div>
+        </div>-->
+
+      </div>
+<!--      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
 @endsection

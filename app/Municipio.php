@@ -15,6 +15,7 @@ class Municipio extends Model
     */
     public static function findMunicipios($idDepto)
     {
-      return  DB::table('MUNICIPIO')->where('id_departamento', $idDepto)->first();
+      return  MUNICIPIO::where('id_departamento', $idDepto)->get();
+      //return User::whereRaw('age > ? and votes = 100', [25])->get();
     }
 }

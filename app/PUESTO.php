@@ -25,4 +25,11 @@ class PUESTO extends Model
     {
       return DB::select('call actualizar_puesto(?, ?)', array($id, $nombre));
     }
+
+    //metodo para devolver todos los puestos que esten disponibles en la base de datos
+
+    public static function getPuestos()
+    {
+      return PUESTO::where('estado_puesto', TRUE)->get();
+    }
 }

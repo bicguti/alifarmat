@@ -6,6 +6,7 @@
       {!!Html::style('/css/bootstrap.min.css')!!}
       {!!Html::style('/css/bootstrap-theme.min.css')!!}
       {!!Html::style('/css/jquery-ui.min.css')!!}
+      {!!Html::style('css/estilos.css')!!}
       {!!Html::script('/js/jquery-2.1.4.min.js')!!}
       {!!Html::script('/js/jquery-ui-1.11.4.custom/jquery-ui.min.js')!!}
       {!!Html::script('js/script.js')!!}
