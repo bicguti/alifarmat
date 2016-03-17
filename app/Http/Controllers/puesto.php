@@ -18,7 +18,7 @@ class puesto extends Controller
     public function index()
     {
       $puestos = \Alifarmat\PUESTO::All();
-        return view('puesto.index', compact('puestos'));
+        return view('puesto.index', compact('puestos'), ['activo'=>'administracion']);
     }
 
     /**
@@ -28,7 +28,7 @@ class puesto extends Controller
      */
     public function create()
     {
-        return view('puesto.npuesto');
+        return view('puesto.npuesto', ['activo'=>'administracion']);
     }
 
     /**

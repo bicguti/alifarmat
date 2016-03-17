@@ -34,7 +34,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="dropdown active">
+
+        <li @if($activo == 'caja') class="dropdown active" @else   class="dropdown"      @endif>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CAJA <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
@@ -47,7 +48,7 @@
           </ul>
         </li>
 
-        <li class="dropdown">
+        <li @if($activo == 'reportes') class="dropdown active" @else   class="dropdown"      @endif>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">REPORTES<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
@@ -60,7 +61,7 @@
           </ul>
         </li>
 
-        <li class="dropdown">
+        <li @if($activo == 'inventario') class="dropdown active" @else   class="dropdown"      @endif>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">INVENTARIO<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Action</a></li>
@@ -73,7 +74,8 @@
           </ul>
         </li>
 
-        <li class="dropdown">
+
+        <li  @if($activo == 'administracion') class="dropdown active" @else   class="dropdown"      @endif>
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMINISTRACION<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="{{ url('/').'/empleado' }}">EMPLEADO</a></li>

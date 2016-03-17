@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
       console.log('error');
     }).always(function(data) {
         var json = JSON.parse(data);
-        var html = '<select class="form-control" name="id_departamento">';
+        var html = '<select class="form-control" name="id_municipio" required="required">';
         html += '<option>Seleccione municipio...</option>';
         for (muni in json) {
           html += '<option value="'+json[muni].id_municipio+'"> '+json[muni].nombre_municipio.toUpperCase()+' </option>';
