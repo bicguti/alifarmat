@@ -89,7 +89,7 @@ class puesto extends Controller
     {
         $puesto = \Alifarmat\PUESTO::findPuesto($id);
         //$puesto = \Alifarmat\PUESTO::find($id);
-        return view('puesto.epuesto', ['puesto'=>$puesto]);
+        return view('puesto.epuesto', ['puesto'=>$puesto, 'activo'=>'administracion']);
     }
 
     /**

@@ -21,4 +21,11 @@ class Empleado extends Model
     {
       return EMPLEADO::where('id_empleado', $id)->first();
     }
+
+    //metodo para editar los datos de un empleado en la base de datos
+    public static function updateEmpleado($id, $nombre, $apellidos, $genero, $domicilio, $zona, $tel1, $tel2, $fechaNacimiento, $edad, $tipoSangre, $antecedentes, $correo, $municipio, $puesto, $dpi)
+    {
+      return DB::select('CALL editar_empleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      array($id, $nombre, $apellidos, $genero, $domicilio, $zona, $tel1, $tel2, $fechaNacimiento, $edad, $tipoSangre, $antecedentes, $correo, $municipio, $puesto, $dpi));
+    }
 }

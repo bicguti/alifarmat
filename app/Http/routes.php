@@ -20,6 +20,9 @@ Route::resource('puesto', 'puesto');
 Route::resource('empleado', 'empleadoController');
 Route::get('github', 'PDFController@github');
 Route::get('municipio', 'municipioController@index');
+Route::resource('presproducto', 'presproductoController');
+Route::resource('producto', 'productoController');
+Route::resource('proveedor', 'proveedorController');
 /*
 |--------------------------------------------------------------------------
 | Application Routes

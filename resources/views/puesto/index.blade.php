@@ -9,14 +9,14 @@
 @if ($msg != null)
 
   @if($buscar === false)
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Exito!</strong> {{$msg}}.
+    <div data-alert class="alert-box success">
+      <strong>Exito!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
     </div>
   @else
-    <div class="alert alert-danger alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Error!</strong> {{$msg}}.
+    <div data-alert class="alert-box alert">
+      <strong>Error!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
     </div>
   @endif
 
@@ -30,56 +30,69 @@
 
 
 @section('content')
-<h1 class="text-center">Puesto</h1>
-<h5 class="text-info"><strong><a href="{{url('/puesto/create')}}" class="btn btn-success">Agregar Puesto</a></strong><h5>
+<div class="row">
+  <div class="large-12 columns text-center">
+    <h1>Puesto</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="large-12 colums">
+    <h5 class="text-info"><strong><a href="{{url('/puesto/create')}}" class="button small success">Agregar Puesto</a></strong><h5>
+  </div>
+</div>
 
-
-@if (count($puestos) == 0)
-<h3 class="text-center text-danger">Todavía no hay Puestos registrados en la base de datos</h3>
-@else
-
-
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <th>
-        NO
-      </th>
-      <th>
-        NOMBRE PUESTO
-      </th>
-      <th>
-        ESTADO PUESTO
-      </th>
-      <th>
-
-      </th>
-      <th>
-
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php $cont = 1; ?>
-    @foreach($puestos as $puesto)
-    <tr>
-      <td> {{$cont++}}     </td>
-    <td> {{ucfirst($puesto->nombre_puesto)}} </td>
-    <td> {{ $puesto->estado_puesto }} </td>
-  <!--  <td class="text-center"> <a href="#" name="prueva" value="10" class="btn btn-success">EDITAR</a>   </td> -->
-  <td class="text-center">
-    {!!link_to_route('puesto.edit', $title = 'Editar', $parameters = $puesto->id_puesto, $attributes = ['class'=>'btn btn-primary']);!!}
-    </td>
-    @if ($puesto->estado_puesto == true)
-        <td class="text-center"> <a href="#" class="btn btn-danger">DESACTIVAR</a>   </td>
+<div class="row">
+  <div class="large-12 columns">
+    @if (count($puestos) == 0)
+    <h3 class="text-center text-danger">Todavía no hay Puestos registrados en la base de datos</h3>
     @else
-      <td class="text-center"> <a href="#" class="btn btn-danger">ACTIVAR</a>   </td>
-    @endif
 
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+<div class="tabla-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            #
+          </th>
+          <th >
+            NOMBRE PUESTO
+          </th>
+          <th>
+            ESTADO PUESTO
+          </th>
+          <th>
+
+          </th>
+          <th>
+
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php $cont = 1; ?>
+        @foreach($puestos as $puesto)
+        <tr>
+          <td> {{$cont++}}     </td>
+        <td> {{ucfirst($puesto->nombre_puesto)}} </td>
+        <td> {{ $puesto->estado_puesto }} </td>
+      <!--  <td class="text-center"> <a href="#" name="prueva" value="10" class="btn btn-success">EDITAR</a>   </td> -->
+      <td class="text-center">
+        {!!link_to_route('puesto.edit', $title = 'Editar', $parameters = $puesto->id_puesto, $attributes = ['class'=>'button small info']);!!}
+        </td>
+        @if ($puesto->estado_puesto == true)
+            <td class="text-center"> <a href="#" class="button small alert">DESACTIVAR</a>   </td>
+        @else
+          <td class="text-center"> <a href="#" class="button small alert">ACTIVAR</a>   </td>
+        @endif
+
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
 
 @endif
 

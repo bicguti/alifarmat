@@ -1,3 +1,7 @@
+.tabla-responsive{
+  min-height: .01%;
+    overflow-x: auto;
+}
 .content-cargando{
   background-color: transparent;
   box-shadow: none;

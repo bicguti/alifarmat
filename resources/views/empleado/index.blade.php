@@ -10,14 +10,14 @@
 @if ($msg != null)
 
   @if($buscar === false)
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Exito!</strong> {{$msg}}.
+    <div data-alert class="alert-box success">
+      <strong>Exito!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
     </div>
   @else
-    <div class="alert alert-danger alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <strong>Error!</strong> {{$msg}}.
+    <div data-alert class="alert-box alert">
+      <strong>Error!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
     </div>
   @endif
 
@@ -28,18 +28,22 @@
 @stop
 
 @section('content')
-  <h1 class="text-center">Empleados</h1>
- <h5>{!!link_to_route('empleado.create', $title = 'Nuevo Empleado', $parameters = null, $attributes = ['class'=>'btn btn-success']);!!}
-</h5>
+<div class="row">
+  <div class="large-12 columns">
+    <h1 class="text-center">Empleados</h1>
+   <h5>{!!link_to_route('empleado.create', $title = 'Nuevo Empleado', $parameters = null, $attributes = ['class'=>'button success']);!!}</h5>
+  </div>
+</div>
+
   @if (count($empleados) > 0)
-    <div class="col-sm-12">
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="tabla-responsive">
 
 
-    <div class="table-responsive">
 
-
-
-    <table class="table table-bordered table-hover">
+    <table>
       <thead>
         <tr>
           <th>
@@ -63,10 +67,10 @@
           <th>
             TEL.
           </th>
-          <th nowrap>
+          <th >
             TEL. EMERGENCIAS
           </th>
-          <th nowrap>
+          <th >
             FECHA NACIMIENTO
           </th>
           <th>
@@ -93,59 +97,59 @@
             <td>
               {{ $cont++ }}
             </td>
-            <td nowrap>
+            <td>
               {{ ucwords($empleado->apellidos_empleados) }}
             </td>
-            <td nowrap>
+            <td >
               {{ ucwords($empleado->nombres_empleado) }}
             </td>
-            <td nowrap>
+            <td >
               {{ ucwords($empleado->genero_empleado) }}
             </td>
-            <td nowrap>
+            <td >
               {{ ucwords($empleado->domicilio_empleado) }}
             </td>
-            <td nowrap>
+            <td >
               {{ ucwords($empleado->zona_empleado) }}
             </td>
-            <td nowrap>
+            <td >
               {{ $empleado->telefono_empleado }}
             </td>
-            <td nowrap>
+            <td >
               {{ $empleado->telefono_emergencias_empleado }}
             </td>
-            <td nowrap>
+            <td >
               {{ $empleado->fecha_nacimiento_empleado }}
             </td>
-            <td nowrap>
+            <td >
               {{ $empleado->edad_empleado }}
             </td>
-            <td nowrap>
+            <td >
               @if($empleado->antecedentes_empleado == true)
                 {{ "SI" }}
               @else
                 {{ "NO" }}
               @endif
             </td>
-            <td nowrap>
+            <td >
               {{ $empleado->correo_empleado }}
             </td>
             <td>
               {{ $empleado->dpi_empleado }}
             </td>
-            <td nowrap>
-              {!!link_to_route('empleado.edit', $title = 'Editar', $parameters = $empleado->id_empleado, $attributes = ['class'=>'btn btn-primary']);!!}
+            <td >
+              {!!link_to_route('empleado.edit', $title = 'Editar', $parameters = $empleado->id_empleado, $attributes = ['class'=>'button small info']);!!}
             </td>
           </tr>
         @endforeach
       </tbody>
   </table>
-
-  </div>
-  </div>
+</div>
+</div>
+</div>
   @else
 
-    <h2 class="text-center text-info">No se han registrado empleados aun.</h2>
+    <h2 class="text-center">No se han registrado empleados aun.</h2>
 
   @endif
 
