@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
 use \Alifarmat\Presentacion_producto;
+use \Alifarmat\Producto;
 use \Validator;
 use Session;
 class presproductoController extends Controller
@@ -28,7 +29,8 @@ class presproductoController extends Controller
      */
     public function create()
     {
-        return view('presproducto.npresproducto', ['activo'=>'inventario']);
+        $producto =    Producto::All();
+        return view('presproducto.npresproducto', ['activo'=>'inventario', 'producto'=>$producto]);
     }
 
     /**
