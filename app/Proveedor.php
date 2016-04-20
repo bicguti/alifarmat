@@ -24,4 +24,12 @@ class Proveedor extends Model
       return DB::select('CALL nuevo_proveedor(?, ?, ?, ?, ?, ?, ?, ?)',
               array($nombre, $domicilio, $zona, $tel1, $tel2, $representante, TRUE, $municipio));
     }
+
+    /*
+        metodo que obtiene los datos de un proveedor
+    */
+    public static function findProveedor($id)
+    {
+      return PROVEEDOR::where('id_proveedor', $id)->first();
+    }
 }

@@ -144,7 +144,12 @@
         @endforeach
       </tbody>
   </table>
+
 </div>
+<div class="large-12 columns">
+  {!!$empleados->render()!!}
+</div>
+
 </div>
 </div>
   @else

@@ -14,15 +14,29 @@
 Route::get('/', function () {
     return view('welcome');
 });*/
+//Route::get('/', 'inicio@index');
+if (Auth::user() == null) {
 
+      Redirect::to('/');
+
+}
 Route::get('/', 'inicio@index');
+//Route::get('/', 'autentController@index');
+Route::get('salir', 'autentController@salir');
+Route::resource('autenticacion', 'autentController');
+
+Route::get('paginainicial', 'inicio@index');
 Route::resource('puesto', 'puesto');
 Route::resource('empleado', 'empleadoController');
+Route::resource('usuario', 'usuarioController');
 Route::get('github', 'PDFController@github');
 Route::get('municipio', 'municipioController@index');
+Route::get('persona', 'empleadoController@buscar');
 Route::resource('presproducto', 'presproductoController');
 Route::resource('producto', 'productoController');
 Route::resource('proveedor', 'proveedorController');
+Route::resource('envio', 'envioController');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

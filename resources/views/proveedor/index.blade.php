@@ -63,7 +63,7 @@
                     {{ $key+1 }}
                   </td>
                   <td>
-                    {{ $prov->nombre_proveedor }}
+                    {{ mb_strtoupper($prov->nombre_proveedor) }}
                   </td>
                   <td>
                     {{ $prov->telefono_proveedor }}

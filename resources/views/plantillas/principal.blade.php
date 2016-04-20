@@ -50,6 +50,7 @@
               <li><a href="{{ url('/').'/producto' }}">PRODUCTO</a></li>
               <li><a href="{{ url('/').'/presproducto' }}">PRESENTACIÓN DE PRODUCTO</a></li>
               <li><a href="{{ url('/').'/proveedor' }}">PROVEEDOR</a></li>
+              <li><a href="{{ url('/').'/envio' }}">ENVIOS</a></li>
             </ul>
           </li>
           <li @if($activo == 'administracion') class="has-dropdown active" @else   class="has-dropdown"      @endif>
@@ -57,6 +58,7 @@
             <ul class="dropdown">
               <li><a href="{{ url('/').'/empleado' }}">EMPLEADO</a></li>
               <li ><a href="{{ url('/').'/puesto' }}">PUESTO</a></li>
+              <li ><a href="{{ url('/').'/usuario' }}">USUARIO</a></li>
             </ul>
           </li>
         </ul>
@@ -64,10 +66,10 @@
         <!-- Left Nav Section -->
         <ul class="right">
           <li class="has-dropdown">
-            <a href="#">Usuario Autenticado</a>
+          <a href="#">Nombres Autenticado</a>
             <ul class="dropdown">
               <li><a href="#">First link in dropdown</a></li>
-              <li ><a href="#">Salir del Sistema</a></li>
+              <li ><a href="/salir">Salir del Sistema</a></li>
             </ul>
           </li>
         </ul>

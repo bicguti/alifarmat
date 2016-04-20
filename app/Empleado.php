@@ -28,4 +28,10 @@ class Empleado extends Model
       return DB::select('CALL editar_empleado(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
       array($id, $nombre, $apellidos, $genero, $domicilio, $zona, $tel1, $tel2, $fechaNacimiento, $edad, $tipoSangre, $antecedentes, $correo, $municipio, $puesto, $dpi));
     }
+
+    //metodo para buscar a un empleado por sus apellidos y devuelve los nombres, apellidos y correo
+    public static function searchEmpleado($apellidos)
+    {
+      return EMPLEADO::where('apellidos_empleados', $apellidos)->select('nombres_empleado', 'apellidos_empleados', 'correo_empleado')->get();
+    }
 }

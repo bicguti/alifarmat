@@ -5,11 +5,10 @@ namespace Alifarmat\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
-use \Alifarmat\Proveedor;
-use \Alifarmat\Departamento;
+Use Alifarmat\User;
 use \Validator;
 use Session;
-class proveedorController extends Controller
+class usuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class proveedorController extends Controller
      */
     public function index()
     {
-        $provedores = Proveedor::getAll();
-        return view('proveedor.index', ['activo'=>'inventario', 'provedores'=>$provedores]);
+          $usuarios = User::All();
+        return view('usuario.index', ['usuarios'=>$usuarios, 'activo'=>'administracion']);
     }
 
     /**
@@ -29,8 +28,7 @@ class proveedorController extends Controller
      */
     public function create()
     {
-        $departamentos = Departamento::getAll();
-        return view('proveedor.nproveedor', ['activo'=>'inventario', 'departamentos'=>$departamentos]);
+        return view('usuario.nusuario', ['activo'=>'administracion']);
     }
 
     /**
@@ -44,21 +42,22 @@ class proveedorController extends Controller
           //crear el arreglo de los mensajes de validacion
           $mensajes = array(
           'required' => 'Hey! EL campo :attribute es requerido!!!.',
+          'min' => 'Hey! El campo :attribute debe tener como minimo :min caracteres!!!',
           'max' => 'Hey! El campo :attribute no puede tener mas de :max caracteres!!!',
+          'alpha' => 'Hey! El campo :attribute solo puede contener letras del alfabeto!!!',
           'unique' => 'Hey! El valor del campo :attribute ya existe en la base de datos, tiene que ser unico!!!',
           'numeric' => 'Hey! El campo :attribute tiene que ser numerico!!!',
+          'date_format' => 'Hey! El campo :attribute no cumple con el formato año-mes-día!!!',
+          'same'=>'Hey! El campo Repetir Contraseña debe ser igual al campo Contraseña'
           );
           //crear las reglas de validacion
           $v = Validator::make(
           $request->all(),
           [
-            'nombre_proveedor' => 'required|max:50|unique:PROVEEDOR,nombre_proveedor',
-            'domicilio_proveedor' => 'required|max:50',
-            'zona_proveedor' => 'required',
-            'id_municipio' => 'required',
-            'telefono_proveedor' => 'required|min:8|numeric',
-            'telefono_secundario_proveedor' => 'min:8|numeric',
-            'representante_proveedor' => 'required|max:100',
+            'name' => 'required|max:100',
+            'password' => 'required|max:20|min:5',
+            'repeat_password' => 'required|min:5|max:20|same:password',
+            'email' => 'required|email|unique:users,email'
           ],
           $mensajes
         );
@@ -68,21 +67,13 @@ class proveedorController extends Controller
         {
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
-        //si la validacion fue correcta capturamos los datos de todos los campos
-        $nombre = mb_strtolower($request['nombre_proveedor']);
-        $domicilio = mb_strtolower($request['nombre_proveedor']);
-        $zona = $request['zona_proveedor'];
-        $municipio = $request['id_municipio'];
-        $telefono = $request['telefono_proveedor'];
-        $telefonoSecundario = $request['telefono_secundario_proveedor'];
-        $representante = $request['representante_proveedor'];
-        //registramos los datos
-        $msg = Proveedor::setProveedor($nombre, $domicilio, $zona, $telefono, $telefonoSecundario, $representante, $municipio);
-        $aux = '';
-        foreach ($msg as $key => $value) {
-          $aux = $value->msg;
-        }
-        Session::flash('message',$aux);
+
+        User::create([
+          'name'=>$request['name'],
+          'email'=>$request['email'],
+          'password'=>bcrypt($request['password'])
+        ]);
+        Session::flash('message', 'El nuevo usuario a sido registrado exitosamente ahora ya puede ingresar al sistema con su correo y password registrados!!!');
         return $this->index();
     }
 
@@ -105,9 +96,7 @@ class proveedorController extends Controller
      */
     public function edit($id)
     {
-        $proveedor =  Proveedor::findProveedor($id);
-        $departamentos = Departamento::getAll();
-        return view('proveedor.eproveedor', ['activo'=>'inventario', 'proveedor'=>$proveedor, 'departamentos'=>$departamentos]);
+        //
     }
 
     /**

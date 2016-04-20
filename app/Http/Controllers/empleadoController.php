@@ -20,7 +20,7 @@ class empleadoController extends Controller
      */
     public function index()
     {
-      $empleados = Empleado::All();
+      $empleados = Empleado::paginate(2);
         return view('empleado.index', compact('empleados'),['activo'=>'administracion']);
     }
 
@@ -222,5 +222,11 @@ class empleadoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function buscar(Request $request)
+    {
+      $resultado = Empleado::searchEmpleado($request['apellidos']);
+      return json_encode($resultado);
     }
 }
