@@ -5,7 +5,19 @@
   <title>Nuevo Producto</title>
 @endsection
 
+
 @section('content')
+
+  @section('content')
+    @if($errors->has())
+      @foreach ($errors->all() as $error)
+         <div data-alert class="alert-box alert">
+           {{ $error }}
+           <a href="#" class="close">&times;</a>
+         </div>
+     @endforeach
+         @endif
+
 <div class="row">
   <div class="large-12 columns">
     <h1 class="text-center">Nuevo Producto</h1>

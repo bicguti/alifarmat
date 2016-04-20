@@ -1,5 +1,26 @@
 @extends('plantillas.principal')
+<?php
+  $msg = Session::get('message');
+  if ($msg != null) {
+    $palabra = 'Error';
+    $buscar = strpos($msg, $palabra);
+  }
+?>
+@if ($msg != null)
 
+  @if($buscar === false)
+    <div data-alert class="alert-box success">
+      <strong>Exito!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
+    </div>
+  @else
+    <div data-alert class="alert-box alert">
+      <strong>Error!</strong> {{ $msg }}
+      <a href="#" class="close">&times;</a>
+    </div>
+  @endif
+
+@endif
 @section('title')
   <title>Productos</title>
 @endsection

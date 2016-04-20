@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
 use \Alifarmat\Producto;
+use \Alifarmat\Proveedor;
+use \Validator;
+use Session;
 use \Alifarmat\Presentacion_producto;
 class productoController extends Controller
 {
@@ -27,11 +30,10 @@ class productoController extends Controller
      */
     public function create()
     {
-        $presentaciones = Presentacion_producto::getAll();
-        /*foreach ($presentaciones as $key => $value) {
-          echo $value->id_presentacion_producto.' '.$value->nombre_presentacion_producto.'<br />';
-        }*/
-        return view('producto.nproducto', ['activo'=>'inventario', 'presentaciones'=>$presentaciones]);
+      $presentaciones = Presentacion_producto::getAll();
+      $variableproveedor = Proveedor::getAll();
+
+      return view('producto.nproducto', ['activo'=>'inventario', 'presentaciones'=>$presentaciones, 'proveedor' => $variableproveedor]);
     }
 
     /**
@@ -42,7 +44,44 @@ class productoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //crear el arreglo de los mensajes de validacion
+      $mensajes = array(
+      'required' => 'Hey! EL campo :attribute es requerido!!!.',
+
+      'max' => 'Hey! El campo :attribute no puede tener mas de :max caracteres!!!',
+      'unique' => 'Hey! El valor del campo :attribute ya existe en la base de datos, tiene que ser unico!!!',
+      'numeric' => 'Hey! El campo :attribute tiene que ser numerico!!!',
+      'date_format' => 'Hey! El campo :attribute no cumple con el formato año-mes-día!!!'
+      );
+      //crear las reglas de validacion
+
+      $v = Validator::make(
+      $request->all(),
+      [
+        'nombre_producto' => 'required|max:50|unique:PRODUCTO,nombre_producto',
+        'cantidad_en_inventario' => 'required|numeric ',
+        'tamano_producto'=> 'required|max:20',
+        'descripcion_producto' => 'required|max:500' ,
+        'id_proveedor' => 'required',
+      ],
+      $mensajes
+      );
+
+      //verificando si todas las validaciones fueron correctas
+      if ($v->fails())
+      {
+          return redirect()->back()->withInput()->withErrors($v->errors());
+      }
+      $nombre = mb_strtolower ($request ['nombre_producto']);
+      $cantidad = mb_strtolower ($request ['cantidad_en_inventario']);
+      $tamano = mb_strtolower ($request ['tamano_producto']);
+      $descripcion = mb_strtolower ($request ['descripcion_producto']);
+      $idproveedor = mb_strtolower ($request ['id_proveedor']);
+
+      $msg = Producto::setProducto($nombre, $cantidad, $tamano, $descripcion, $idproveedor);
+
+      Session::flash('message',$msg[0]->msg);
+      return $this->index();
     }
 
     /**
