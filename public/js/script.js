@@ -120,5 +120,40 @@ jQuery(document).ready(function($) {
 
   });//fin del evento click
 
+  $('#idPresentProd').change(function(event) {
+    event.preventDefault();
+    var idPres = idPresentacion = $(this).val();
+    if (idPres != '') {
+      $('#ventanaModal').foundation('reveal', 'open'); //mostramos el mensaje de carga
+      var URLdomain = window.location.host;//obtenemos la url del dominio
+      var protocolo = window.location.protocol;//obtenemos el protocolo
+      var url = protocolo+'//'+URLdomain+'/presproducto/'+idPres;//creamos la url a la que se va realizar la peticion
+      var token = $('#token').val();
+      $.ajax({//relizamos la peticion ajax
+        url: url,
+        headers: {'X-CSRF-TOKEN': token},
+        type: 'GET',
+        dataType: 'json'
+      }).success(function(data) {
+        var html = '';
+        $(data).each(function(index, el) {
+          html += '<tr>';
+          html += '<td>'+el.nombre_presentacion_producto.toUpperCase()+'</td>';
+          html += '<td>'+el.cantidad_unidades+'</td>';
+          html += '<td>'+el.precio_publico+'</td>';
+          html += '</tr>';
+        });
+        var tabla = $('#cuerpoTabla');
+        tabla.append(html);
+        setTimeout(function(){$('#ventanaModal').foundation('reveal', 'close')}, 500);//ocultamos el mensaje de carga
+      }).error(function(error) {
+        console.log('Error');
+        console.log(error);
+      });
+
+    }else {
+      alert('Por favor selecciona una opción valida!!!');
+    }
+  });
 
 });

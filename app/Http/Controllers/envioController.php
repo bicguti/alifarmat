@@ -5,7 +5,7 @@ namespace Alifarmat\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Alifarmat\Http\Requests;
-
+use Alifarmat\Presentacion_producto;
 class envioController extends Controller
 {
     /**
@@ -25,7 +25,8 @@ class envioController extends Controller
      */
     public function create()
     {
-        return view('envio.nenvio', ['activo'=>'inventario']);
+        $presentaciones = Presentacion_producto::All();//obtenemos todas las presentaciones
+        return view('envio.nenvio', ['activo'=>'inventario', 'presentaciones'=>$presentaciones]);
     }
 
     /**

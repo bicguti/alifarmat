@@ -4,7 +4,7 @@ namespace Alifarmat;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-class PUESTO extends Model
+class Puesto extends Model
 {
     protected $table = 'PUESTO';
     public $timestamps = false;

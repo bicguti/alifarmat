@@ -17,7 +17,7 @@ class puesto extends Controller
      */
     public function index()
     {
-      $puestos = \Alifarmat\PUESTO::All();
+      $puestos = \Alifarmat\Puesto::All();
         return view('puesto.index', compact('puestos'), ['activo'=>'administracion']);
     }
 
@@ -57,7 +57,7 @@ class puesto extends Controller
         {
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
-        $msg = \Alifarmat\PUESTO::setPuesto(mb_strtolower($request['nombre']));
+        $msg = \Alifarmat\Puesto::setPuesto(mb_strtolower($request['nombre']));
         $aux = '';
         foreach ($msg as $key => $value) {
           $aux = $value->msg;
@@ -87,7 +87,7 @@ class puesto extends Controller
      */
     public function edit($id)
     {
-        $puesto = \Alifarmat\PUESTO::findPuesto($id);
+        $puesto = \Alifarmat\Puesto::findPuesto($id);
         //$puesto = \Alifarmat\PUESTO::find($id);
         return view('puesto.epuesto', ['puesto'=>$puesto, 'activo'=>'administracion']);
     }
@@ -121,7 +121,7 @@ class puesto extends Controller
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
         //de lo contrario se actualiza en la base de datos
-        $msg = \Alifarmat\PUESTO::updatePuesto($id, mb_strtolower($request['nombre_puesto']));
+        $msg = \Alifarmat\Puesto::updatePuesto($id, mb_strtolower($request['nombre_puesto']));
         $aux = '';
         foreach ($msg as $key => $value) {
           $aux = $value->msg;

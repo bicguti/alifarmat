@@ -54,13 +54,13 @@
               @foreach ($productos as $key => $prod)
                 <tr>
                   <td>
-                    {{ $key }}
+                    {{ $key + 1 }}
                   </td>
                   <td>
-                    {{ $prod->nombre_producto }}
+                    {{ ucwords($prod->nombre_producto) }}
                   </td>
                   <td>
-                    {!!link_to_route('empleado.edit', $title = 'Editar Producto', $parameters = $prod->id_producto, $attributes = ['class'=>'button small info'])!!}
+                    {!!link_to_route('producto.edit', $title = 'Editar Producto', $parameters = $prod->id_producto, $attributes = ['class'=>'button small info'])!!}
                   </td>
                 </tr>
               @endforeach

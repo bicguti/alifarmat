@@ -92,7 +92,7 @@ class productoController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -103,7 +103,9 @@ class productoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $producto = Producto::findProducto($id);
+        $variableproveedor = Proveedor::getAll();
+        return view('producto.eproducto', ['activo'=>'producto', 'producto'=>$producto, 'proveedor'=>$variableproveedor]);
     }
 
     /**
@@ -115,7 +117,44 @@ class productoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          //crear el arreglo de los mensajes de validacion
+          $mensajes = array(
+          'required' => 'Hey! EL campo :attribute es requerido!!!.',
+
+          'max' => 'Hey! El campo :attribute no puede tener mas de :max caracteres!!!',
+          'unique' => 'Hey! El valor del campo :attribute ya existe en la base de datos, tiene que ser unico!!!',
+          'numeric' => 'Hey! El campo :attribute tiene que ser numerico!!!',
+          'date_format' => 'Hey! El campo :attribute no cumple con el formato año-mes-día!!!'
+          );
+          //crear las reglas de validacion
+
+          $v = Validator::make(
+          $request->all(),
+          [
+            'nombre_producto' => 'required|max:50|unique:PRODUCTO,nombre_producto,'.$id.',id_producto',
+            'cantidad_en_inventario' => 'required|numeric ',
+            'tamano_producto'=> 'required|max:20',
+            'descripcion_producto' => 'required|max:500' ,
+            'id_proveedor' => 'required',
+          ],
+          $mensajes
+          );
+
+          //verificando si todas las validaciones fueron correctas
+          if ($v->fails())
+          {
+              return redirect()->back()->withInput()->withErrors($v->errors());
+          }
+          $nombre = mb_strtolower ($request ['nombre_producto']);
+          $cantidad = mb_strtolower ($request ['cantidad_en_inventario']);
+          $tamano = mb_strtolower ($request ['tamano_producto']);
+          $descripcion = mb_strtolower ($request ['descripcion_producto']);
+          $idproveedor = mb_strtolower ($request ['id_proveedor']);
+
+          $msg = Producto::updateProducto($nombre, $cantidad, $tamano, $descripcion, $idproveedor, $id);
+
+          Session::flash('message',$msg[0]->msg);
+          return $this->index();
     }
 
     /**

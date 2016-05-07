@@ -53,7 +53,10 @@ class presproductoController extends Controller
           $v = Validator::make(
           $request->all(),
           [
+            'id_producto' => 'required',
             'nombre_presentacion_producto' => 'required|max:50|unique:PRESENTACION_PRODUCTO,nombre_presentacion_producto',
+            'cantidad_unidades' => 'required|numeric',
+            'precio_publico' => 'required'
           ],
           $mensajes
         );
@@ -64,12 +67,11 @@ class presproductoController extends Controller
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
         $nombre = mb_strtolower($request['nombre_presentacion_producto']);
-        $msg = Presentacion_producto::setPresProducto($nombre);
-        $aux = '';
-        foreach ($msg as $key => $value) {
-          $aux = $value->msg;//buscamos el contenido del mensaje
-        }
-        Session::flash('message',$aux);//creamos la variable temporal que contendra el mensaje
+        $idProducto =  $request['id_producto'];
+        $cantidad = $request['cantidad_unidades'];
+        $precio =  $request['precio_publico'];
+        $msg = Presentacion_producto::setPresProducto($idProducto, $nombre, $cantidad, $precio);
+        Session::flash('message',$msg[0]->msg);//creamos la variable temporal que contendra el mensaje
         return $this->index();
     }
 
@@ -81,7 +83,9 @@ class presproductoController extends Controller
      */
     public function show($id)
     {
-        //
+        //metodo que utizo para hacer una peticion ajax sobre un producto en especifico
+        $presentacion = Presentacion_producto::findPresProducto($id);
+        return response()->json($presentacion);
     }
 
     /**
@@ -92,8 +96,9 @@ class presproductoController extends Controller
      */
     public function edit($id)
     {
+        $producto =    Producto::All();
         $presentacion = Presentacion_producto::findPresProducto($id);
-        return view('presproducto.epresproducto', ['activo'=>'inventario', 'presentacion'=>$presentacion]);
+        return view('presproducto.epresproducto', ['activo'=>'inventario', 'presentacion'=>$presentacion, 'producto'=>$producto]);
     }
 
     /**
@@ -127,12 +132,12 @@ class presproductoController extends Controller
         return redirect()->back()->withInput()->withErrors($v->errors());
     }
     $nombre = mb_strtolower($request['nombre_presentacion_producto']);
-    $msg = Presentacion_producto::updatePresProducto($nombre, $id);
-    $aux = '';
-    foreach ($msg as $key => $value) {
-      $aux = $value->msg;//buscamos el contenido del mensaje
-    }
-    Session::flash('message',$aux);//creamos la variable temporal que contendra el mensaje
+    $idProducto =  $request['id_producto'];
+    $cantidad = $request['cantidad_unidades'];
+    $precio =  $request['precio_publico'];
+    $msg = Presentacion_producto::updatePresProducto($idProducto, $nombre, $cantidad, $precio, $id);
+
+    Session::flash('message',$msg[0]->msg);//creamos la variable temporal que contendra el mensaje
     return $this->index();
     }
 

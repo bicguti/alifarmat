@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Alifarmat\Http\Requests;
 use \Alifarmat\Empleado;
 use \Alifarmat\Departamento;
-use \Alifarmat\PUESTO;
 use \Alifarmat\Municipio;
+use \Alifarmat\Puesto;
 use \Validator;
 use Session;
 class empleadoController extends Controller

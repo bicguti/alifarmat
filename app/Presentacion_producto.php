@@ -20,9 +20,9 @@ class Presentacion_producto extends Model
   *  metodo para agregar un nuevo registro a la base de datos
   *  $nombre, es el nombre que tendra la presentacion de producto
   */
-  public static function setPresProducto($nombre)
+  public static function setPresProducto($idProducto, $nombre, $cantidad, $precio)
   {
-    return DB::select('CALL nuevo_pres_producto(?, ?)', array($nombre, TRUE));
+    return DB::select('CALL nuevo_pres_producto(?, ?, ?, ?, ?)', array($idProducto, $nombre, $cantidad, $precio, TRUE));
   }
   /**
     * metodo que busca a una presentación de producto para editar
@@ -38,8 +38,8 @@ class Presentacion_producto extends Model
     *@param $nombre, nombre de la presentación de producto
     *@param $id, identificadro unico del registro
   */
-  public static function updatePresProducto($nombre, $id)
+  public static function updatePresProducto($idProducto, $nombre, $cantidad, $precio, $id)
   {
-    return DB::select('CALL actualizar_pres_producto(?, ?)', array($nombre, $id));
+    return DB::select('CALL actualizar_pres_producto(?, ?, ?, ?, ?)', array($idProducto, $nombre, $cantidad, $precio, $id));
   }
 }
